@@ -3,8 +3,9 @@ defmodule CS50.Lab1.Hello do
   A simple program that gets a name from the user and then greets them with that name.
   """
 
-  @spec greet(name :: String.t()) :: String.t()
-  def greet(name) do
+  @spec greet :: String.t()
+  def greet do
+    name = IO.gets("What is your name? ")
     "hello #{name}"
   end
 end
