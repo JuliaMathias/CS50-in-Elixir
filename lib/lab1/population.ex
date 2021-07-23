@@ -3,32 +3,50 @@ defmodule CS50.Lab1.Population do
   A simple program that gets a name from the user and then greets them with that name.
   """
 
-  @spec calculate :: String.t()
-  def calculate do
-    start_size = IO.gets("Start size: ") |> String.to_integer()
+  @spec interface :: String.t()
+  def interface do
+    start_size = IO.gets("Start size: ") |> String.to_float()
     start_size = validate_start_size(start_size)
-    end_size = IO.gets("End size: ") |> String.to_integer()
+    end_size = IO.gets("End size: ") |> String.to_float()
     end_size = validate_end_size(start_size, end_size)
-    yearly_change = start_size + start_size / 3 - start_size / 4
+    calculate(start_size, end_size)
+  end
 
-    calculate_years(end_size, yearly_change)
-    |> Float.ceil()
-    |> Kernel.trunc()
+  def calculate(start_size, end_size, year_count \\ 0) do
+    if start_size < end_size do
+      IO.puts("starting a year")
+      IO.inspect(start_size)
+      IO.inspect(end_size)
+      IO.inspect(year_count)
+      new_start_size = yearly_change(start_size)
+      new_year_count = year_count + 1
+      IO.puts("new values")
+      IO.inspect(new_start_size)
+      IO.inspect(end_size)
+      IO.inspect(new_year_count)
+      calculate(new_start_size, end_size, new_year_count)
+    else
+      IO.puts("should just return year")
+      IO.inspect(year_count)
+      year_count
+    end
   end
 
   defp validate_start_size(start_size) when start_size < 9 do
-    new_size = IO.gets("Start size: ") |> String.to_integer()
+    new_size = IO.gets("Start size: ") |> String.to_float()
     validate_start_size(new_size)
   end
 
-  defp validate_start_size(start_size), do: start_size |> String.to_integer()
+  defp validate_start_size(start_size), do: start_size |> String.to_float()
 
   defp validate_end_size(start_size, end_size) when start_size > end_size do
-    new_size = IO.gets("End size: ") |> String.to_integer()
+    new_size = IO.gets("End size: ") |> String.to_float()
     validate_end_size(start_size, new_size)
   end
 
-  defp validate_end_size(_start_size, end_size), do: end_size |> String.to_integer()
+  defp validate_end_size(_start_size, end_size), do: end_size |> String.to_float()
 
-  defp calculate_years(end_size, yearly_change), do: end_size / yearly_change
+  defp yearly_change(start_size) do
+    start_size + start_size / 3 - start_size / 4
+  end
 end
