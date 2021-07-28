@@ -5,10 +5,10 @@ defmodule CS50.Lab1.Population do
 
   @spec interface :: String.t()
   def interface do
-    start_size = IO.gets("Start size: ") |> String.to_float()
-    start_size = validate_start_size(start_size)
-    end_size = IO.gets("End size: ") |> String.to_float()
-    end_size = validate_end_size(start_size, end_size)
+    {start_size, _} = IO.gets("Start size: ") |> Integer.parse()
+    {start_size, _} = {validate_start_size(start_size), ""}
+    {end_size, _} = IO.gets("End size: ") |> Integer.parse()
+    {end_size, _} = {validate_end_size(start_size, end_size), ""}
     calculate(start_size, end_size)
   end
 
@@ -23,18 +23,18 @@ defmodule CS50.Lab1.Population do
   end
 
   defp validate_start_size(start_size) when start_size < 9 do
-    new_size = IO.gets("Start size: ") |> String.to_float()
+    {new_size, _} = IO.gets("Start size: ") |> Integer.parse()
     validate_start_size(new_size)
   end
 
-  defp validate_start_size(start_size), do: start_size |> String.to_float()
+  defp validate_start_size(start_size), do: start_size
 
   defp validate_end_size(start_size, end_size) when start_size > end_size do
-    new_size = IO.gets("End size: ") |> String.to_float()
+    {new_size, _} = IO.gets("End size: ") |> Integer.parse()
     validate_end_size(start_size, new_size)
   end
 
-  defp validate_end_size(_start_size, end_size), do: end_size |> String.to_float()
+  defp validate_end_size(_start_size, end_size), do: end_size
 
   defp yearly_change(start_size) do
     births = (start_size / 3) |> Kernel.trunc()
