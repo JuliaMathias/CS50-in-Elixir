@@ -14,20 +14,10 @@ defmodule CS50.Lab1.Population do
 
   def calculate(start_size, end_size, year_count \\ 0) do
     if start_size < end_size do
-      IO.puts("starting a year")
-      IO.inspect(start_size)
-      IO.inspect(end_size)
-      IO.inspect(year_count)
       new_start_size = yearly_change(start_size)
       new_year_count = year_count + 1
-      IO.puts("new values")
-      IO.inspect(new_start_size)
-      IO.inspect(end_size)
-      IO.inspect(new_year_count)
       calculate(new_start_size, end_size, new_year_count)
     else
-      IO.puts("should just return year")
-      IO.inspect(year_count)
       year_count
     end
   end
@@ -47,6 +37,9 @@ defmodule CS50.Lab1.Population do
   defp validate_end_size(_start_size, end_size), do: end_size |> String.to_float()
 
   defp yearly_change(start_size) do
-    start_size + start_size / 3 - start_size / 4
+    births = (start_size / 3) |> Kernel.trunc()
+    deaths = (start_size / 4) |> Kernel.trunc()
+
+    start_size + births - deaths
   end
 end
