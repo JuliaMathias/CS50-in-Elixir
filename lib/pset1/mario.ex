@@ -16,11 +16,14 @@ defmodule CS50.Pset1.Mario do
 
   defp validate_height(height), do: height
 
-  defp print_piramid(original_height, i) when i < original_height do
-    # print 3 spaces + 1 hash + 2 spaces + 1 hash + 3 spaces
-    # print 2 spaces + 2 hashes + 2 spaces + 2 hashes + 2 spaces
-    # print 1 space + 3 hashes + 2 spaces + 3 hashes + 1 space
-    # print 4 hashes + 2 spaces + 4 hashes
+  defp print_piramid(original_height, i) when i == original_height - 1 do
+    draw("#", i + 1)
+    draw(" ", 2)
+    draw("#", i + 1)
+    draw("\n", 1)
+  end
+
+  defp print_piramid(original_height, i) do
     draw(" ", original_height - 1 - i)
     draw("#", i + 1)
     draw(" ", 2)
@@ -29,20 +32,12 @@ defmodule CS50.Pset1.Mario do
     print_piramid(original_height, i + 1)
   end
 
-  defp print_piramid(original_height, i) when i == original_height do
-    draw(" ", original_height - 1 - i)
-    draw("#", i + 1)
-    draw(" ", 2)
-    draw("#", i + 1)
-    draw("\n", 1)
-  end
-
-  def draw(character, times) when times >= 1 do
+  def draw(character, times) when times > 1 do
     IO.write(character)
     draw(character, times - 1)
   end
 
-  def draw(character, 0) do
+  def draw(character, 1) do
     IO.write(character)
   end
 end
