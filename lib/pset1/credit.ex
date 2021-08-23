@@ -27,6 +27,7 @@ defmodule CS50.Pset1.Credit do
          do: checksum(cc_number, provider)
   end
 
+  @spec validate_length(String.t()) :: <<_::56>> | {:ok, 13 | 15 | 16}
   def validate_length(cc_number) do
     length = String.length(cc_number)
 
@@ -38,8 +39,34 @@ defmodule CS50.Pset1.Credit do
     end
   end
 
-  def validate_provider(cc_number, provider) do
-    cc_number + provider
+  @spec validate_provider(String.t(), number) :: <<_::56>> | {:ok, String.t()}
+  def validate_provider(<<start::binary-size(1), _rest::binary-size(12)>>, 13) do
+    case start do
+      "4" -> {:ok, "Visa"}
+      _ -> "INVALID"
+    end
+  end
+
+  def validate_provider(<<start::binary-size(2), _rest::binary-size(13)>>, 15) do
+    case start do
+      "34" -> {:ok, "Amex"}
+      "37" -> {:ok, "Amex"}
+      _ -> "INVALID"
+    end
+  end
+
+  def validate_provider(
+        <<first_char::binary-size(1), second_char::binary-size(1), _rest::binary-size(14)>>,
+        16
+      ) do
+    start = first_char <> second_char
+    mastercard_starts = ["51", "52", "53", "54", "55"]
+
+    cond do
+      first_char == "4" -> {:ok, "Visa"}
+      Enum.member?(mastercard_starts, start) -> {:ok, "Mastercard"}
+      true -> "INVALID"
+    end
   end
 
   defp checksum(cc_number, provider) do
