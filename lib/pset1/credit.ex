@@ -14,6 +14,7 @@ defmodule CS50.Pset1.Credit do
   - Visa: 13- and 16-digit numbers, starts with 4
   """
 
+  @spec check_card :: binary
   def check_card do
     #   # get the number
     #   # convert it to integer
@@ -69,10 +70,48 @@ defmodule CS50.Pset1.Credit do
     end
   end
 
-  defp checksum(cc_number, provider) do
-    # Multiply every other digit by 2, starting with the number’s second-to-last digit, and then add those products’ digits together.
-    # Add the sum to the sum of the digits that weren’t multiplied by 2.
-    # If the total’s last digit is 0 (or, put more formally, if the total modulo 10 is congruent to 0), the number is valid!
-    cc_number + provider
+  @spec checksum(String.t(), String.t()) :: String.t()
+  def checksum(cc_number, provider) do
+    list_of_digits = get_reversed_digits(cc_number)
+    # IO.inspect(list_of_digits, label: "reversed list")
+
+    sum_1 = add_every_other_number(list_of_digits)
+    # IO.inspect(sum_1, label: "sum_1")
+
+    sum_2 = add_remaining_digits(list_of_digits)
+    # IO.inspect(sum_2, label: "sum_2")
+
+    last_digit = (sum_1 + sum_2) |> Integer.digits() |> List.last()
+    # IO.inspect(last_digit, label: "last_digit")
+
+    case last_digit do
+      0 -> provider
+      _ -> "INVALID"
+    end
+  end
+
+  @spec get_reversed_digits(String.t()) :: list()
+  defp get_reversed_digits(cc_number) do
+    cc_number
+    |> Integer.parse()
+    |> Kernel.elem(0)
+    |> Integer.digits()
+    |> Enum.reverse()
+  end
+
+  defp add_every_other_number(list_of_digits) do
+    list_of_digits
+    |> Enum.drop_every(2)
+    |> Enum.map(fn x -> x * 2 end)
+    |> Enum.map(fn x -> Integer.digits(x) end)
+    |> List.flatten()
+    |> Enum.reduce(0, fn x, acc -> x + acc end)
+  end
+
+  defp add_remaining_digits(list_of_digits) do
+    list_of_digits
+    |> List.insert_at(0, 0)
+    |> Enum.drop_every(2)
+    |> Enum.reduce(0, fn x, acc -> x + acc end)
   end
 end
