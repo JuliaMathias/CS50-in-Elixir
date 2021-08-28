@@ -57,4 +57,24 @@ defmodule CS50.Pset1.CreditTest do
       assert Credit.validate_provider("6123456789123456", 16) == "INVALID"
     end
   end
+
+  describe "checksum/2" do
+    Enum.each(["4111111111111111", "4012888888881881"], fn card_number ->
+      test "given valid Visa #{card_number} should return Visa" do
+        assert Credit.checksum(unquote(card_number), "Visa") == "Visa"
+      end
+    end)
+
+    Enum.each(["5555555555554444", "5105105105105100"], fn card_number ->
+      test "given valid Mastercard #{card_number} should return Mastercard" do
+        assert Credit.checksum(unquote(card_number), "Mastercard") == "Mastercard"
+      end
+    end)
+
+    Enum.each(["378282246310005", "371449635398431"], fn card_number ->
+      test "given valid Amex #{card_number} should return Amex" do
+        assert Credit.checksum(unquote(card_number), "Amex") == "Amex"
+      end
+    end)
+  end
 end
