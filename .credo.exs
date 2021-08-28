@@ -111,7 +111,7 @@
         {Credo.Check.Readability.PreferImplicitTry, []},
         {Credo.Check.Readability.RedundantBlankLines, []},
         {Credo.Check.Readability.SeparateAliasRequire, []},
-        {Credo.Check.Readability.Semicolons, []},,
+        {Credo.Check.Readability.Semicolons, []},
         {Credo.Check.Readability.SpaceAfterCommas, []},
         {Credo.Check.Readability.StringSigils, []},
         {Credo.Check.Readability.TrailingBlankLine, []},
@@ -123,7 +123,8 @@
         ## Refactoring Opportunities
         #
         {Credo.Check.Refactor.ABCSize, false},
-        {Credo.Check.Refactor.AppendSingleItem}, # TODO - Think about this one
+        # TODO - Think about this one
+        {Credo.Check.Refactor.AppendSingleItem},
         {Credo.Check.Refactor.CondStatements, []},
         {Credo.Check.Refactor.CyclomaticComplexity, []},
         {Credo.Check.Refactor.FunctionArity, []},
