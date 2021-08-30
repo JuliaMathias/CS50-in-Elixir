@@ -3,6 +3,7 @@ defmodule CS50.Pset1.Mario do
   A program that prints a piramid based on a height input from the user.
   """
 
+  @spec make_piramid :: :ok
   def make_piramid do
     {height, _} = IO.gets("Height: ") |> Integer.parse()
     {height, _} = {validate_height(height), ""}
@@ -32,6 +33,7 @@ defmodule CS50.Pset1.Mario do
     print_piramid(original_height, i + 1)
   end
 
+  @spec draw(any, integer) :: :ok
   def draw(character, times) when times > 1 do
     IO.write(character)
     draw(character, times - 1)

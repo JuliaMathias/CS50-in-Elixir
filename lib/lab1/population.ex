@@ -12,6 +12,7 @@ defmodule CS50.Lab1.Population do
     calculate(start_size, end_size)
   end
 
+  @spec calculate(pos_integer, pos_integer, pos_integer) :: any
   def calculate(start_size, end_size, year_count \\ 0) do
     if start_size < end_size do
       new_start_size = yearly_change(start_size)
