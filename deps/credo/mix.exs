@@ -133,7 +133,7 @@ defmodule Credo.Mixfile do
       {:bunt, "~> 0.2.0"},
       {:jason, "~> 1.0"},
       {:ex_doc, "~> 0.21", only: :dev, runtime: false},
-      {:excoveralls, "~> 0.10", only: :test},
+      {:excoveralls, "~> 0.14", only: :test},
       {:inch_ex, "~> 0.1", only: [:dev, :test], runtime: false}
     ]
   end
