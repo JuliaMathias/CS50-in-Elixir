@@ -129,7 +129,7 @@ defmodule Credo.Mixfile do
 
   defp deps do
     [
-      {:file_system, "~> 0.2.8"},
+      {:file_system, "~> 1.0.0"},
       {:bunt, "~> 0.2.0"},
       {:jason, "~> 1.0"},
       {:ex_doc, "~> 0.25", only: :dev, runtime: false},
