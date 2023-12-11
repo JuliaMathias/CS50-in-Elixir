@@ -29,7 +29,7 @@ defmodule Jason.Mixfile do
     [
       {:decimal, "~> 1.0 or ~> 2.0", optional: true},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:ex_doc, "~> 0.25", only: :docs},
+      {:ex_doc, "~> 0.31", only: :docs},
     ] ++ maybe_stream_data()
   end
 
